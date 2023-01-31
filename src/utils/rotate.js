@@ -35,13 +35,31 @@ export function createArray(num) {
     return arr;
 }
 
+// create matchups based on the array, 
+// this creates all the matchups in one round
+// before the teams are rotated.
 export function createMatchups(arr){
     const matchups = [];
     const half = Math.ceil(arr.length / 2);
     for (let i = 0; i < half; i++) {
-        matchups.push([arr[i], arr[arr.length - 1 - i]]);
+        let matchup = [arr[i], arr[arr.length - 1 - i]]
+        if (matchup[0] !== matchup[1]) {
+            matchups.push(matchup);
+        }
     }
     return matchups;
+}
+
+// Create all matchoups for all rounds.
+export function createAllMatchups(arr){
+    const matchups = [];
+    for (let i = 0; i < arr.length; i++) {
+        matchups.push(createMatchups(arr));
+        arr = rotateTeamsBackwards(arr);
+    }
+    // correct the order of the matchups, 
+    // so teams dont have too much breaks
+    return matchups
 }
 
 // Rotate the teams in the array forward or backward depending on input function
