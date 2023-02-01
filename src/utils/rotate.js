@@ -57,8 +57,13 @@ export function createAllMatchups(arr){
         matchups.push(createMatchups(arr));
         arr = rotateTeamsBackwards(arr);
     }
-    // correct the order of the matchups, 
-    // so teams dont have too much breaks
+    // if the length is even, remove the last matchups
+    // (BUG: double entry)
+    if (isEven(arr.length)) {
+        for (let i = 0; i < arr.length/2; i++) {
+            matchups[matchups.length-1].pop();
+        }
+    }
     return matchups
 }
 
@@ -83,31 +88,3 @@ export function rotateTeamsForward(arr) {
 export function rotateTeamsBackwards(arr){
     return rotateTeams(arr, rotateRight);
 }
-
-//let arr = createArray(5);
-
-//console.log(arr);
-//console.log("Matchup: ", createMatchups(arr));
-//console.log("Forward: ");
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log("Backward: ");
-//console.log(rotateTeamsBackwards(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log("Forward: ");
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log("Forward: ");
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log(rotateTeamsForward(arr));
-//console.log("Matchup: ", createMatchups(arr));
-//console.log(rotateTeamsForward(arr));
-
-
