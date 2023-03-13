@@ -8,23 +8,22 @@ import Matchup from "../components/Matchup";
 export default function Matchmaker() {
     const theme = useTheme();
     const [numberOfTeams, setNumberOfTeams] = useState(localStorage.getItem("numberOfTeams") || 0);
+    const [numberOfTeamsInput, setNumberOfTeamsInput] = useState(localStorage.getItem("numberOfTeams") || 0);
     const [teams, setTeams] = useState(createArray(numberOfTeams));
     const [matchups, setMatchups] = useState(createAllMatchups(rotateTeamsForward(teams)));
     const [clear, setClear] = useState(false);
 
     useEffect(() => {
-        const timeOutId = setTimeout(() => {
-            if (numberOfTeams < 1) {setNumberOfTeams(1); return;}
+            if (numberOfTeams < 2) {setNumberOfTeams(2); return;}
             if (numberOfTeams > 10) {setNumberOfTeams(10); return;}
             localStorage.setItem("numberOfTeams", numberOfTeams);
             const newteams = createArray(numberOfTeams);
             const newmatchups = createAllMatchups(rotateTeamsForward(newteams));
             setTeams(newteams);
             setMatchups(newmatchups);
+            setNumberOfTeamsInput(numberOfTeams);
             setClear(!clear);
 
-        }, 1000);
-        return () => clearTimeout(timeOutId);
       }, [numberOfTeams]);
     
     return (
@@ -54,18 +53,24 @@ export default function Matchmaker() {
                             },
                             inputMode: 'numeric', pattern: '[0-9]*'
                         }}
-                        style={{width: '60px',
+                        style={{width: '63px',
                             paddingLeft: '',
                             marginTop: '10px',
                             position: 'absolute',
                             right: '1%',
                             top: '50px'}}
-                        value={numberOfTeams}
-                        onChange={(e)=>{
+                        value={numberOfTeamsInput}
+                        onBlur={(e)=>{
                             setNumberOfTeams(e.target.value)
+                        }}
+                        onKeyDown={(e)=>{
+                            if (e.key === 'Enter') { setNumberOfTeams(e.target.value) }
+                        }}
+                        
+                        onChange={(e)=>{
+                            setNumberOfTeamsInput(e.target.value)
                         }}/>
                 </div>
-            </AppBar>
             <Button 
                 style={{margin: 'auto', 
                     marginTop: '10px', 
@@ -77,6 +82,7 @@ export default function Matchmaker() {
                 onClick={()=>{setClear(!clear)}}
                 >Clear
             </Button>
+            </AppBar>
 
             <div style={{display: 'flex', margin: 'auto' ,marginTop: '10px', justifyContent: 'center', flexDirection: 'column'}}>
             {matchups.map((round, index)=>(
