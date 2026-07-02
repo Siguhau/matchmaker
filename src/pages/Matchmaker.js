@@ -22,7 +22,7 @@ export default function Matchmaker() {
             setTeams(newteams);
             setMatchups(newmatchups);
             setNumberOfTeamsInput(numberOfTeams);
-            setClear(!clear);
+            setClear((current) => !current);
 
       }, [numberOfTeams]);
     
@@ -79,7 +79,7 @@ export default function Matchmaker() {
                     right: '1%',
                     top: '120px'}}
                 variant="contained" 
-                onClick={()=>{setClear(!clear)}}
+                onClick={()=>{setClear((current) => !current)}}
                 >Clear
             </Button>
             </AppBar>
