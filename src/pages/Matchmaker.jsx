@@ -47,11 +47,12 @@ export default function Matchmaker() {
                     <TextField
                         variant="filled"
                         label="Teams"
-                        InputProps={{
-                            inputProps: {
-                                style: { marginLeft: '5px',textAlign: 'center' },
-                            },
-                            inputMode: 'numeric', pattern: '[0-9]*'
+                        slotProps={{
+                            htmlInput: {
+                                style: { marginLeft: '5px', textAlign: 'center' },
+                                inputMode: 'numeric',
+                                pattern: '[0-9]*'
+                            }
                         }}
                         style={{width: '63px',
                             paddingLeft: '',

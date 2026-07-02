@@ -25,9 +25,9 @@ export default function Team(props){
                         textAlign: 'center',
                         width: '50px',
                         height: '50px'}}>
-            <Typography color={textColor}
-                variant="h6" 
-                style={{margin: 'auto'}}>
+            <Typography
+                variant="h6"
+                style={{color: textColor, margin: 'auto'}}>
             {teamNumber}
             </Typography>
             </Card>
